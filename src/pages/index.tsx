@@ -50,7 +50,9 @@ export default function Home() {
             {hello.data ? hello.data.greeting : "Loading tRPC query..."}
           </p>
         </div>
-        <div>{data?.map((post) => <div>{post.comment}</div>)}</div>
+        <div>
+          {data?.map((post) => <div key={post.id}>{post.comment}</div>)}
+        </div>
       </main>
     </>
   );
