@@ -6,6 +6,8 @@ import { api } from "~/utils/api";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
+  const { data } = api.posts.getAll.useQuery();
+  console.log(data);
 
   return (
     <>
@@ -48,6 +50,7 @@ export default function Home() {
             {hello.data ? hello.data.greeting : "Loading tRPC query..."}
           </p>
         </div>
+        <div>{data?.map((post) => <div>{post.comment}</div>)}</div>
       </main>
     </>
   );
