@@ -1,4 +1,4 @@
-export default function InputForm() {
+export const InputForm = () => {
   return (
     <div className="grid grid-cols-4 gap-1 pb-4">
       <input
@@ -35,4 +35,4 @@ export default function InputForm() {
       </button>
     </div>
   );
-}
+};

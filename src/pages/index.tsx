@@ -1,17 +1,23 @@
-import { UserButton, UserProfile } from "@clerk/nextjs";
+import { UserButton, useUser } from "@clerk/nextjs";
 import Head from "next/head";
 import Summe from "~/components/Summe";
 
 import Image from "next/image";
 
 import { api } from "~/utils/api";
-import Entry from "~/components/Entry";
-import InputForm from "~/components/InputForm";
+import { Entry } from "~/components/Entry";
+import { InputForm } from "~/components/InputForm";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
   const { data } = api.posts.getAll.useQuery();
-  console.log(data);
+
+  const { user } = useUser();
+  if (!user) return;
+
+  const firstname = user.firstName;
+  const lastname = user.lastName;
+  const email = user.emailAddresses[0]?.emailAddress;
 
   return (
     <>
@@ -27,14 +33,19 @@ export default function Home() {
           <Image src="/NameLogo.png" alt="NameLogo" width={150} height={100} />
         </div>
       </div>
-      <main className="flex min-h-screen justify-center bg-[url('/Background.jpg')] bg-cover bg-fixed">
+      <main className="flex min-h-screen flex-col items-center bg-[url('/Background.jpg')] bg-cover bg-fixed">
+        <p className="pt-4 text-black">
+          You are logged in as: {firstname} {lastname}, {email}
+        </p>
         <div className="container p-4">
-          <InputForm />
           <Entry price={4} tip={2} />
           <Entry price={4} tip={2} />
           <Entry price={4} tip={2} />
           <Entry price={4} tip={2} />
           <Summe />
+          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+            <InputForm />
+          </div>
         </div>
         {/* <Link
             className="flex max-w-xs flex-col gap-4 rounded-xl bg-black/50 p-4 text-white"

@@ -4,7 +4,7 @@ type entryProps = {
   comment?: string;
 };
 
-export default function Entry(props: entryProps) {
+export const Entry = (props: entryProps) => {
   const { price, tip, comment } = props;
   return (
     <div className="grid grid-cols-4 gap-1 pb-1">
@@ -22,4 +22,4 @@ export default function Entry(props: entryProps) {
       </div>
     </div>
   );
-}
+};
