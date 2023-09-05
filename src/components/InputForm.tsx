@@ -1,3 +1,5 @@
+import { api } from "~/utils/api";
+
 export const InputForm = () => {
   return (
     <div className="grid grid-cols-3 gap-1 pb-4">

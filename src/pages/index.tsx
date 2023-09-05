@@ -10,7 +10,7 @@ import { InputForm } from "~/components/InputForm";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
-  const { data } = api.posts.getAll.useQuery();
+  const { data } = api.entries.getAll.useQuery();
 
   const { user } = useUser();
   if (!user) return;
@@ -32,6 +32,7 @@ export default function Home() {
           <div className="flex items-center gap-5">
             <UserButton afterSignOutUrl="/" />
             <Image
+              priority
               src="/NameLogo.png"
               alt="NameLogo"
               width={150}
@@ -39,15 +40,21 @@ export default function Home() {
             />
           </div>
         </div>
-        <div className="container p-4">
-          <Entry price={4} tip={2} />
-          <Entry price={4} tip={2} />
-          <Entry price={4} tip={2} />
-          <Entry price={4} tip={2} />
-          <Summe />
-          <div className="absolute bottom-4 left-4 right-4">
-            <InputForm />
+        <div className="max-w-xs p-4">
+          <div>
+            {data?.map((entry) => (
+              <Entry
+                key={entry.id}
+                price={entry.price}
+                tip={entry.tip}
+                dateTime={entry.createdAt}
+              />
+            ))}
+            <Summe />
           </div>
+        </div>
+        <div className="absolute bottom-4 max-w-xs p-4">
+          <InputForm />
         </div>
         {/* <Link
             className="flex max-w-xs flex-col gap-4 rounded-xl bg-black/50 p-4 text-white"
