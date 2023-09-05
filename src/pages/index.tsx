@@ -34,16 +34,13 @@ export default function Home() {
         </div>
       </div>
       <main className="flex min-h-screen flex-col items-center bg-[url('/Background.jpg')] bg-cover bg-fixed">
-        <p className="pt-4 text-black">
-          You are logged in as: {firstname} {lastname}, {email}
-        </p>
         <div className="container p-4">
           <Entry price={4} tip={2} />
           <Entry price={4} tip={2} />
           <Entry price={4} tip={2} />
           <Entry price={4} tip={2} />
           <Summe />
-          <div className="absolute bottom-1 left-1/2 -translate-x-1/2 -translate-y-1/2 transform">
+          <div className="absolute bottom-4 left-4 right-4">
             <InputForm />
           </div>
         </div>

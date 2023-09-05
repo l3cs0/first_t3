@@ -1,10 +1,10 @@
 export default function Summe() {
   return (
-    <div className="grid grid-cols-4 gap-1 pt-4">
-      <div className="rounded-lg bg-black/60 px-4 py-1 text-center align-middle text-white sm:max-w-xs">
+    <div className="grid grid-cols-3 gap-1 pt-4">
+      <div className="rounded-lg bg-yellow-500 px-1 py-1 text-center align-middle text-black sm:max-w-xs">
         234
       </div>
-      <div className="rounded-lg bg-black/60 px-4 py-1 text-center align-middle text-white sm:max-w-xs">
+      <div className="rounded-lg bg-yellow-500 px-1 py-1 text-center align-middle text-black sm:max-w-xs">
         234
       </div>
     </div>
