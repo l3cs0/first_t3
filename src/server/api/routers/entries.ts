@@ -6,8 +6,13 @@ export const entriesRouter = createTRPCRouter({
   getAll: publicProcedure.query(({ ctx }) => {
     return ctx.prisma.entry.findMany();
   }),
-  addEntry: publicProcedure.mutation((req) => {
-    console.log(`client says: ${req.input}`);
-    return "true";
-  }),
+  addEntry: publicProcedure
+    .input(z.object({ price: z.number(), tip: z.number() }))
+    .mutation(async (req) => {
+      await req.ctx.prisma.entry.create({
+        price: req.input.price,
+        tip: req.input.tip,
+      });
+      return "true";
+    }),
 });

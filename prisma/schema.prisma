@@ -12,7 +12,7 @@ generator client {
   provider = "prisma-client-js"
 }
 
-model Entry {
+model entry {
     id        String   @id @default(cuid())
     createdAt DateTime @default(now())
     authorId String

@@ -1,6 +1,9 @@
 import { api } from "~/utils/api";
 
 export const InputForm = () => {
+  const handleNewEntry = (price: number, tip: number) => {
+    api.entries.addEntry.useMutation().mutate({ price: price, tip: tip });
+  };
   return (
     <div className="grid grid-cols-3 gap-1 pb-4">
       <input
@@ -24,6 +27,9 @@ export const InputForm = () => {
       <button
         type="button"
         className="rounded-lg bg-yellow-500 px-1 py-1 text-center align-middle text-black sm:max-w-xs"
+        onClick={() => {
+          handleNewEntry(1, 0);
+        }}
       >
         Speichern
       </button>
