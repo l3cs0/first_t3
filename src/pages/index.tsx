@@ -7,6 +7,7 @@ import Image from "next/image";
 import { api } from "~/utils/api";
 import { Entry } from "~/components/Entry";
 import { InputForm } from "~/components/InputForm";
+import { UploadButton } from "~/utils/uploadthing";
 
 export default function Home() {
   const hello = api.example.hello.useQuery({ text: "from tRPC" });
@@ -54,6 +55,18 @@ export default function Home() {
           </div>
         </div>
         <div className="absolute bottom-4 max-w-xs p-4">
+          <UploadButton
+            endpoint="imageUploader"
+            onClientUploadComplete={(res) => {
+              // Do something with the response
+              console.log("Files: ", res);
+              alert("Upload Completed");
+            }}
+            onUploadError={(error: Error) => {
+              // Do something with the error.
+              alert(`ERROR! ${error.message}`);
+            }}
+          />
           <InputForm />
         </div>
         {/* <Link
