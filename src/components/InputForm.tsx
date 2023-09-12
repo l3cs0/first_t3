@@ -1,15 +1,11 @@
+import { useState } from "react";
 import { api } from "~/utils/api";
 
-type InputFormProps = {
-  price: string;
-  tip: string;
-  email: string;
-  setPrice: (price: string) => void;
-  setTip: (tip: string) => void;
-};
-export const InputForm = (Props: InputFormProps) => {
-  const { price, tip, setPrice, setTip } = Props;
+export const InputForm = () => {
+  const [price, setPrice] = useState("");
+  const [tip, setTip] = useState("");
   const mutation = api.entries.create.useMutation();
+
   function handleNewEntry(p: string, t: string) {
     mutation.mutate({ price: p, tip: t, comment: "", email: "" });
 

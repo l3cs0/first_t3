@@ -7,13 +7,20 @@ import Image from "next/image";
 import { api } from "~/utils/api";
 import { Entry } from "~/components/Entry";
 import { InputForm } from "~/components/InputForm";
-import { useState } from "react";
+import { useEffect, useState } from "react";
+
+type EntriesType = {
+  id: string;
+  createdAt: Date;
+  authorId: string;
+  price: number;
+  tip: number;
+  comment: string;
+}[];
 
 export default function Home() {
-  const { user } = useUser();
   const { data } = api.entries.getAll.useQuery();
-  const [price, setPrice] = useState("");
-  const [tip, setTip] = useState("");
+  const { user } = useUser();
 
   if (!user) return;
 
@@ -54,13 +61,7 @@ export default function Home() {
           </div>
         </div>
         <div className="absolute bottom-4 max-w-xs p-4">
-          <InputForm
-            price={price}
-            tip={tip}
-            email={email}
-            setPrice={setPrice}
-            setTip={setTip}
-          />
+          <InputForm />
         </div>
       </main>
     </>

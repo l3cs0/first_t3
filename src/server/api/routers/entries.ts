@@ -1,5 +1,4 @@
 import { z } from "zod";
-import { useUser } from "@clerk/nextjs";
 
 import { createTRPCRouter, publicProcedure } from "~/server/api/trpc";
 
