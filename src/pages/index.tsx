@@ -7,18 +7,18 @@ import Image from "next/image";
 import { api } from "~/utils/api";
 import { Entry } from "~/components/Entry";
 import { InputForm } from "~/components/InputForm";
+import { useState } from "react";
 
 export default function Home() {
-  const hello = api.example.hello.useQuery({ text: "from tRPC" });
-  const { data } = api.entries.getAll.useQuery();
-
   const { user } = useUser();
+  const { data } = api.entries.getAll.useQuery();
+  const [price, setPrice] = useState("");
+  const [tip, setTip] = useState("");
+
   if (!user) return;
 
-  const firstname = user.firstName;
-  const lastname = user.lastName;
   const email = user.emailAddresses[0]?.emailAddress;
-
+  if (!email) return;
   return (
     <>
       <Head>
@@ -54,21 +54,14 @@ export default function Home() {
           </div>
         </div>
         <div className="absolute bottom-4 max-w-xs p-4">
-          <InputForm />
+          <InputForm
+            price={price}
+            tip={tip}
+            email={email}
+            setPrice={setPrice}
+            setTip={setTip}
+          />
         </div>
-        {/* <Link
-            className="flex max-w-xs flex-col gap-4 rounded-xl bg-black/50 p-4 text-white"
-            href="https://create.t3.gg/en/usage/first-steps"
-            target="_blank"
-          >
-            <h3 className="text-2xl font-bold">First Steps →</h3>
-          </Link>
-          <p className="text-2xl text-white">
-            {hello.data ? hello.data.greeting : "Loading tRPC query..."}
-          </p>
-          <div>
-            {data?.map((post) => <div key={post.id}>{post.comment}</div>)}
-          </div> */}
       </main>
     </>
   );
