@@ -7,21 +7,23 @@ type entryProps = {
 export const Entry = (props: entryProps) => {
   const { price, tip, dateTime } = props;
 
-  const day = dateTime?.getDay();
-  const month = dateTime?.getMonth();
-  const hour = dateTime?.getHours();
-  const minute = dateTime?.getMinutes();
+  const formatedDate = dateTime?.toLocaleDateString("de-DE", {
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+    hour: "numeric",
+    minute: "numeric",
+  });
 
-  const formatedDate = `${day}.${month} ${hour}:${minute}`;
   return (
     <div className="grid grid-cols-3 gap-1 pb-1">
-      <div className="rounded-lg bg-black/60 px-1 py-1 text-center align-middle text-white sm:max-w-xs">
+      <div className="flex flex-col justify-center rounded-lg bg-black/60 text-center text-white">
         {price}
       </div>
-      <div className="rounded-lg bg-black/60 px-1 py-1 text-center align-middle text-white sm:max-w-xs">
+      <div className="flex flex-col justify-center rounded-lg bg-black/60 text-center text-white">
         {tip}
       </div>
-      <div className="rounded-lg bg-black/60 px-1 py-1 text-center align-middle text-white sm:max-w-xs">
+      <div className="flex flex-col justify-center rounded-lg bg-black/60 p-1 text-center text-xs text-white sm:max-w-xs">
         {formatedDate}
       </div>
     </div>
