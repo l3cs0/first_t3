@@ -1,21 +1,28 @@
 import { Button } from "@mui/base";
+import type { entry } from "@prisma/client";
+import { api } from "~/utils/api";
 
-type entryProps = {
-  price: number;
-  tip: number;
-  dateTime?: Date;
-};
+export const Entry = (props: entry) => {
+  const { price, tip, createdAt, id } = props;
+  const trpcUtils = api.useContext();
 
-export const Entry = (props: entryProps) => {
-  const { price, tip, dateTime } = props;
-
-  const formatedDate = dateTime?.toLocaleDateString("de-DE", {
+  const formatedDate = createdAt?.toLocaleDateString("de-DE", {
     day: "numeric",
     month: "numeric",
     year: "numeric",
     hour: "numeric",
     minute: "numeric",
   });
+
+  const mutation = api.entries.delete.useMutation({
+    onSuccess: async () => {
+      await trpcUtils.invalidate();
+    },
+  });
+
+  const deleteEntry = () => {
+    mutation.mutate({ id: id });
+  };
 
   return (
     <div className="flex gap-2 pb-1">
@@ -30,7 +37,10 @@ export const Entry = (props: entryProps) => {
           {formatedDate}
         </div>
       </div>
-      <Button className="rounded-lg  border-4 border-solid border-black">
+      <Button
+        onClick={() => deleteEntry()}
+        className="rounded-lg  border-4 border-solid border-black"
+      >
         X
       </Button>
     </div>

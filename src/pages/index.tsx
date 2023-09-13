@@ -1,6 +1,5 @@
 import { UserButton, useUser } from "@clerk/nextjs";
 import Head from "next/head";
-import Summe from "~/components/Summe";
 
 import Image from "next/image";
 
@@ -44,7 +43,6 @@ export default function Home() {
               isLoading={entries.isLoading}
               isError={entries.isError}
             />
-            <Summe />
           </div>
         </div>
         <div className="absolute bottom-4 max-w-xs p-4">

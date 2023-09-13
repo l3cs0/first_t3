@@ -5,6 +5,7 @@ export const InputForm = () => {
   const [price, setPrice] = useState("");
   const [tip, setTip] = useState("");
   const trpcUtils = api.useContext();
+
   const createEntry = api.entries.create.useMutation({
     onSuccess: async (newEntry) => {
       console.log(`New entry created: ${newEntry.id}`);
