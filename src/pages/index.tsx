@@ -5,21 +5,11 @@ import Summe from "~/components/Summe";
 import Image from "next/image";
 
 import { api } from "~/utils/api";
-import { Entry } from "~/components/Entry";
 import { InputForm } from "~/components/InputForm";
-import { useEffect, useState } from "react";
-
-type EntriesType = {
-  id: string;
-  createdAt: Date;
-  authorId: string;
-  price: number;
-  tip: number;
-  comment: string;
-}[];
+import { EntryList } from "~/components/EntryList";
 
 export default function Home() {
-  const { data } = api.entries.getAll.useQuery();
+  const entries = api.entries.getAll.useQuery();
   const { user } = useUser();
 
   if (!user) return;
@@ -49,14 +39,11 @@ export default function Home() {
         </div>
         <div className="max-w-xs p-4">
           <div>
-            {data?.map((entry) => (
-              <Entry
-                key={entry.id}
-                price={entry.price}
-                tip={entry.tip}
-                dateTime={entry.createdAt}
-              />
-            ))}
+            <EntryList
+              entries={entries.data}
+              isLoading={entries.isLoading}
+              isError={entries.isError}
+            />
             <Summe />
           </div>
         </div>

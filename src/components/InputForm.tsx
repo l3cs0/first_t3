@@ -4,17 +4,24 @@ import { api } from "~/utils/api";
 export const InputForm = () => {
   const [price, setPrice] = useState("");
   const [tip, setTip] = useState("");
-  const mutation = api.entries.create.useMutation();
+  const trpcUtils = api.useContext();
+  const createEntry = api.entries.create.useMutation({
+    onSuccess: async (newEntry) => {
+      console.log(`New entry created: ${newEntry.id}`);
+      await trpcUtils.invalidate();
+      setPrice("");
+      setTip("");
+    },
+  });
 
-  function handleNewEntry(p: string, t: string) {
-    mutation.mutate({ price: p, tip: t, comment: "", email: "" });
+  const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
 
-    setPrice("");
-    setTip("");
-  }
+    createEntry.mutate({ price: price, tip: tip, email: "" });
+  };
 
   return (
-    <div className="grid grid-cols-3 gap-1 pb-4">
+    <form className="grid grid-cols-3 gap-1 pb-4" onSubmit={handleSubmit}>
       <input
         className="rounded-lg bg-black/60 px-1 py-1 text-center align-middle text-white sm:max-w-xs"
         autoFocus
@@ -42,14 +49,11 @@ export const InputForm = () => {
         }}
       />
       <button
-        type="button"
+        type="submit"
         className="rounded-lg bg-yellow-500 px-1 py-1 text-center align-middle text-black sm:max-w-xs"
-        onClick={() => {
-          handleNewEntry(price, tip);
-        }}
       >
         Speichern
       </button>
-    </div>
+    </form>
   );
 };

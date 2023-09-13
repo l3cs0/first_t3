@@ -1,3 +1,5 @@
+import { Button } from "@mui/base";
+
 type entryProps = {
   price: number;
   tip: number;
@@ -16,16 +18,21 @@ export const Entry = (props: entryProps) => {
   });
 
   return (
-    <div className="grid grid-cols-3 gap-1 pb-1">
-      <div className="flex flex-col justify-center rounded-lg bg-black/60 text-center text-white">
-        {price}
+    <div className="flex gap-2 pb-1">
+      <div className="grid grid-cols-3 gap-1">
+        <div className="flex flex-col justify-center rounded-lg bg-black/60 text-center text-white">
+          {price}
+        </div>
+        <div className="flex flex-col justify-center rounded-lg bg-black/60 text-center text-white">
+          {tip}
+        </div>
+        <div className="flex flex-col justify-center rounded-lg bg-black/60 p-1 text-center text-xs text-white sm:max-w-xs">
+          {formatedDate}
+        </div>
       </div>
-      <div className="flex flex-col justify-center rounded-lg bg-black/60 text-center text-white">
-        {tip}
-      </div>
-      <div className="flex flex-col justify-center rounded-lg bg-black/60 p-1 text-center text-xs text-white sm:max-w-xs">
-        {formatedDate}
-      </div>
+      <Button className="rounded-lg  border-4 border-solid border-black">
+        X
+      </Button>
     </div>
   );
 };
